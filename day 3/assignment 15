@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    float a, b, c, d, root1, root2;
+
+    printf("Enter coefficients a, b and c: ");
+    scanf("%f %f %f", &a, &b, &c);
+
+    d = b*b - 4*a*c;   // discriminant
+
+    if (d >= 0) {
+        root1 = (-b + sqrt(d)) / (2*a);
+        root2 = (-b - sqrt(d)) / (2*a);
+
+        if (root1 > 0)
+            printf("Positive root = %.2f\n", root1);
+        if (root2 > 0)
+            printf("Positive root = %.2f\n", root2);
+        if (root1 <= 0 && root2 <= 0)
+            printf("No positive roots.\n");
+    } else {
+        printf("No real roots.\n");
+    }
+
+    return 0;
+}
