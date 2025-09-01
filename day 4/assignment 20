@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+int main() {
+    char coin;
+
+    printf("Enter H for Head or T for Tail: ");
+    scanf(" %c", &coin);  // space before %c to avoid newline issues
+
+    if (coin == 'H' || coin == 'h') {
+        printf("It is Head.\n");
+    }
+    if (coin == 'T' || coin == 't') {
+        printf("It is Tail.\n");
+    }
+
+    return 0;
+}
