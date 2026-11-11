@@ -1,0 +1,2 @@
+ALTER TABLE EMP1
+RENAME COLUMN age TO age_in_years;

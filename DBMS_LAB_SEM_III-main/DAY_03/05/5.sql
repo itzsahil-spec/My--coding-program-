@@ -1,0 +1,1 @@
+SELECT * FROM EMPLOYEE WHERE last_name = 'King';

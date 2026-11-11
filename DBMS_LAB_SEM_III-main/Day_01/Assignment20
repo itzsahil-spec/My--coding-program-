@@ -1,0 +1,2 @@
+DELETE FROM Student;
+COMMIT;

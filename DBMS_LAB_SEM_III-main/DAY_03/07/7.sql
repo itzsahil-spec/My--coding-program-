@@ -1,0 +1,1 @@
+SELECT last_name, salary, salary + 300 AS "Increased Salary" FROM EMPLOYEE;

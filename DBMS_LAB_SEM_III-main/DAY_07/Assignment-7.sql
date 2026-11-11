@@ -1,0 +1,125 @@
+-- LAB ASSIGNMENT 7: EMPLOYEE_DETAILS
+-- Oracle SQL
+-- Run this script after creating and populating EMPLOYEE_DETAILS.
+
+-- 1. First names in lowercase for departments 20, 50, 80
+SELECT LOWER(FIRST_NAME) AS FIRST_NAME
+FROM EMPLOYEE_DETAILS
+WHERE DEPARTMENT_ID IN (20, 50, 80);
+
+-- 2. Last names in uppercase for departments 10, 110, 60
+SELECT UPPER(LAST_NAME) AS LAST_NAME
+FROM EMPLOYEE_DETAILS
+WHERE DEPARTMENT_ID IN (10, 110, 60);
+
+-- 3. JOB_ID in Sa_Rep format
+SELECT INITCAP(LOWER(JOB_ID)) AS JOB_ID
+FROM EMPLOYEE_DETAILS;
+
+-- 4. Employee full name using CONCAT
+SELECT CONCAT(FIRST_NAME, CONCAT(' ', LAST_NAME)) AS NAME
+FROM EMPLOYEE_DETAILS;
+
+-- 5. Length of last names of employees receiving commission
+SELECT LAST_NAME, LENGTH(LAST_NAME) AS NAME_LENGTH
+FROM EMPLOYEE_DETAILS
+WHERE COMMISSION_PCT IS NOT NULL;
+
+-- 6. Position of 'a' in first name (0 means not found)
+SELECT FIRST_NAME, INSTR(FIRST_NAME, 'a') AS POSITION
+FROM EMPLOYEE_DETAILS;
+
+-- 7. Full name, last-name length and position of 'a' for CLERK jobs
+SELECT FIRST_NAME || ' ' || LAST_NAME AS NAME,
+       LENGTH(LAST_NAME) AS LAST_NAME_LENGTH,
+       INSTR(LAST_NAME, 'a') AS POSITION
+FROM EMPLOYEE_DETAILS
+WHERE JOB_ID LIKE '%CLERK%';
+
+-- 8. Salary padded to 10 characters with '$' on the left
+SELECT LPAD(TO_CHAR(SALARY), 10, '$') AS SALARY
+FROM EMPLOYEE_DETAILS;
+
+-- 9. Trim 'e' from both ends of first names containing e
+SELECT TRIM('e' FROM FIRST_NAME) AS TRIMMED
+FROM EMPLOYEE_DETAILS
+WHERE LOWER(FIRST_NAME) LIKE '%e%';
+
+-- 10. Employees whose first name has exactly 6 characters
+SELECT DEPARTMENT_ID, SALARY, HIRE_DATE
+FROM EMPLOYEE_DETAILS
+WHERE LENGTH(FIRST_NAME) = 6;
+
+-- 11. JOB_ID and position of 'e' in first name
+SELECT JOB_ID, INSTR(FIRST_NAME, 'e') AS POSITION
+FROM EMPLOYEE_DETAILS
+WHERE LOWER(FIRST_NAME) LIKE '%e%';
+
+-- 12. Last names where REP occurs in JOB_ID from position 4 onward
+SELECT LAST_NAME
+FROM EMPLOYEE_DETAILS
+WHERE INSTR(JOB_ID, 'REP', 4) > 0;
+
+-- 13. Remainder of salary / 3000 for sales representatives
+SELECT SALARY, MOD(SALARY, 3000) AS REMAINDER
+FROM EMPLOYEE_DETAILS
+WHERE JOB_ID = 'SA_REP';
+
+-- 14. Salary formatted like $7,000.00
+SELECT TO_CHAR(SALARY, 'FM$9,999,999.00') AS SALARY
+FROM EMPLOYEE_DETAILS;
+
+-- 15. Salary formatted like $7000 for departments 60, 90, 110
+SELECT TO_CHAR(SALARY, 'FM$9999990') AS SALARY
+FROM EMPLOYEE_DETAILS
+WHERE DEPARTMENT_ID IN (60, 90, 110);
+
+-- 16. Commission amount; show No Commission when commission is NULL
+SELECT LAST_NAME,
+       NVL(TO_CHAR(SALARY * COMMISSION_PCT), 'No Commission') AS COMM
+FROM EMPLOYEE_DETAILS;
+
+-- 17. Rounded days elapsed since hire date
+SELECT LAST_NAME, ROUND(SYSDATE - HIRE_DATE) AS DAYS_ELAPSED
+FROM EMPLOYEE_DETAILS;
+
+-- 18. Weeks elapsed since hire date
+SELECT LAST_NAME, (SYSDATE - HIRE_DATE) / 7 AS WEEKS_ELAPSED
+FROM EMPLOYEE_DETAILS;
+
+-- 19. Rounded years elapsed since hire date
+SELECT LAST_NAME,
+       ROUND(MONTHS_BETWEEN(SYSDATE, HIRE_DATE) / 12) AS YEARS_ELAPSED
+FROM EMPLOYEE_DETAILS;
+
+-- 20. Employee name and months worked
+SELECT FIRST_NAME || ' ' || LAST_NAME AS NAME,
+       MONTHS_BETWEEN(SYSDATE, HIRE_DATE) AS MONTHS_WORKED
+FROM EMPLOYEE_DETAILS;
+
+-- 21. Employee and last day of hire month
+SELECT LAST_NAME, LAST_DAY(HIRE_DATE) AS LAST_DAY
+FROM EMPLOYEE_DETAILS;
+
+-- 22. Hire year in words
+SELECT LAST_NAME, TO_CHAR(HIRE_DATE, 'YEAR') AS HIRE_YEAR
+FROM EMPLOYEE_DETAILS;
+
+-- 23. Date five months from today
+SELECT ADD_MONTHS(SYSDATE, 5) AS "FUTURE DATE"
+FROM DUAL;
+
+-- 24. Name, day and date of joining
+SELECT FIRST_NAME || ' ' || LAST_NAME AS NAME,
+       TO_CHAR(HIRE_DATE, 'FMDay DD-MON-YYYY') AS JOINING_DATE
+FROM EMPLOYEE_DETAILS;
+
+-- 25. Annual salary exactly as specified in the assignment:
+-- (SALARY * 12) + COMMISSION_PCT
+SELECT LAST_NAME,
+       (SALARY * 12) + NVL(COMMISSION_PCT, 0) AS ANNUAL_SALARY,
+       ROUND((SALARY * 12) + NVL(COMMISSION_PCT, 0), 2) AS ROUNDED_ANNUAL_SALARY
+FROM EMPLOYEE_DETAILS;
+
+-- Note: If the intended meaning is annual salary including commission amount,
+-- use: (SALARY * 12) + (SALARY * NVL(COMMISSION_PCT, 0)).

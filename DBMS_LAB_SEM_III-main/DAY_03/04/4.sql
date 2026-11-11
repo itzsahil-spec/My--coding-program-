@@ -1,0 +1,1 @@
+SELECT * FROM EMPLOYEE WHERE dept_id = 60;

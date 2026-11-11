@@ -1,0 +1,1 @@
+SELECT * FROM EMPLOYEE WHERE salary <> 5000;

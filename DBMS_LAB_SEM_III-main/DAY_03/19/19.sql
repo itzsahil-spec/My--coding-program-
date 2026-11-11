@@ -1,0 +1,1 @@
+SELECT * FROM EMPLOYEE WHERE job_id LIKE '%CLERK%' AND salary < 3000;

@@ -1,0 +1,3 @@
+INSERT INTO EMP_TRAINEE
+ SELECT * FROM
+EMP1 WHERE designation = 'Trainee';

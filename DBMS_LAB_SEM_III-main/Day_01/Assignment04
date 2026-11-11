@@ -1,0 +1,3 @@
+CREATE TABLE MSc AS 
+SELECT * FROM Student 
+WHERE 1 = 0;

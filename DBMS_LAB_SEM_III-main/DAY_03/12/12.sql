@@ -1,0 +1,1 @@
+SELECT last_name, salary FROM EMPLOYEE WHERE salary BETWEEN 4000 AND 7000;

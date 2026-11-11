@@ -1,0 +1,2 @@
+UPDATE EMPLOYEE SET job_id = 'Grade_A' WHERE salary > 5000;
+SELECT * FROM EMPLOYEE;
